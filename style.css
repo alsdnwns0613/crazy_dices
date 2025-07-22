@@ -1,0 +1,569 @@
+/* 웹 폰트 (Press Start 2P) - 8비트 게임 폰트 느낌 */
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 버튼 공통 스타일 */
+.btn {
+    background-color: #27ae60;
+    color: white;
+    border: 3px solid #209d52;
+    padding: 8px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+    transition: background-color 0.2s, box-shadow 0.2s;
+    -webkit-text-stroke: 1px black;
+}
+
+.btn:hover:not(:disabled) { /* 비활성화 상태에서는 hover 효과 없음 */
+    background-color: #2ecc71;
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.primary-btn {
+    background-color: #e74c3c;
+    border-color: #c0392b;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background-color: #f75240;
+}
+
+/* ===========================
+   로그인 페이지 스타일
+   =========================== */
+.page-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.page-login .login-container {
+    background-color: #34495e;
+    border: 5px solid #2980b9;
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.page-login .login-container h1 {
+    color: #f1c40f;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 4px 4px #e67e22;
+}
+
+.page-login .login-container p {
+    font-size: 1em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* ===========================
+   방 목록 페이지 스타일
+   =========================== */
+.page-room-list body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.page-room-list .game-container {
+    background-color: #34495e;
+    border: 5px solid #2980b9;
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.page-room-list .game-header {
+    text-align: center;
+    border-bottom: 3px solid #2980b9;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-room-list .game-header h1 {
+    margin: 0;
+    color: #f1c40f;
+    font-size: 2em;
+    text-shadow: 3px 3px #e67e22;
+}
+
+.page-room-list .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.page-room-list .room-list-panel {
+    background-color: #2c3e50;
+    border: 3px solid #3498db;
+    padding: 15px;
+    flex: 1;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+}
+
+.page-room-list .room-actions {
+    display: flex;
+    gap: 15px; /* 버튼들 사이의 간격 */
+    justify-content: left;
+    margin-bottom: 25px; /* <-- 이 부분을 추가하거나 값 변경 (현재 15px에서 25px로 늘림) */
+}
+
+.page-room-list #room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.page-room-list .room-item {
+    background-color: #34495e;
+    border: 2px solid #2980b9;
+    padding: 8px;
+    font-size: 0.9em;
+    -webkit-text-stroke: 0.5px black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-room-list .room-item .room-name {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.page-room-list .room-item .room-players {
+    font-size: 0.8em;
+    color: #bdc3c7;
+}
+
+.page-room-list .join-room-btn {
+    padding: 5px 10px;
+    font-size: 0.7em;
+    margin-left: 10px;
+}
+
+/* ===========================
+   게임 보드 페이지 스타일
+   =========================== */
+.page-game-board body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.page-game-board .game-container {
+    background-color: #34495e;
+    border: 5px solid #2980b9;
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.page-game-board .game-header {
+    text-align: center;
+    border-bottom: 3px solid #2980b9;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-game-board .game-header h1 {
+    margin: 0;
+    color: #f1c40f;
+    font-size: 2em;
+    text-shadow: 3px 3px #e67e22;
+}
+
+.page-game-board .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.page-game-board .game-area {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.page-game-board .player-list-panel,
+.page-game-board .control-panel {
+    background-color: #2c3e50;
+    border: 3px solid #3498db;
+    padding: 15px;
+    min-width: 200px;
+    flex: 1;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+}
+
+.page-game-board .game-board-panel {
+    background-color: #2c3e50;
+    border: 3px solid #3498db;
+    padding: 15px;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+}
+
+.page-game-board h2,
+.page-game-board h3 {
+    color: #f39c12;
+    border-bottom: 2px solid #e67e22;
+    padding-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.page-game-board #player-list,
+.page-game-board #item-dice-inventory {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.page-game-board .player-item {
+    background-color: #34495e;
+    border: 2px solid #2980b9;
+    padding: 8px;
+    font-size: 0.9em;
+    -webkit-text-stroke: 0.5px black;
+    display: flex; /* 토큰/아이콘을 위한 flex */
+    align-items: center;
+}
+
+/* 플레이어 목록 내 아이콘 */
+.page-game-board .player-icon {
+    margin-right: 5px;
+    font-size: 1.2em; /* 방장 아이콘 크기 */
+}
+
+/* 플레이어 목록 옆 작은 색상 토큰 */
+.page-game-board .player-item .player-token {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.5);
+    margin-left: auto; /* 텍스트 오른쪽에 붙게 */
+}
+
+
+.page-game-board #game-board {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    grid-template-rows: repeat(13, 1fr);
+    gap: 2px;
+    border: 2px solid #7f8c8d;
+    padding: 2px;
+    background-color: #616161;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+}
+
+.triangle-dice {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #000000; /* 연두색 */
+    margin: 5px;
+}
+
+.page-game-board .board-cell {
+    background-color: #95a5a6;
+    border: 2px solid #7f8c8d;
+    display: flex;
+    flex-direction: column; /* 이벤트 텍스트와 토큰이 세로로 */
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75em;
+    box-sizing: border-box;
+    position: relative; /* 토큰 위치를 위해 필요 */
+    -webkit-text-stroke: 0.5px black;
+    color: #ecf0f1;
+    min-width: 40px;
+    min-height: 40px;
+    text-align: center;
+    line-height: 1.1; /* 텍스트가 여러 줄일 때 간격 */
+}
+
+/* 보드 위 플레이어 말(토큰) */
+.page-game-board .player-token-on-board {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid black;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease-out, left 0.3s ease-out, top 0.3s ease-out; /* 이동 애니메이션 */
+    z-index: 10; /* 다른 요소 위에 표시 */
+}
+
+.page-game-board .empty-cell {
+    background-color: transparent;
+    border: none;
+}
+
+.page-game-board .start-cell {
+    background-color: #27ae60;
+    border-color: #209d52;
+    font-weight: bold;
+    color: #fff;
+}
+.status-icon {
+    font-size: 10px;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+}
+
+/* 무인도 칸 스타일 */
+.page-game-board .special-jail {
+    background-color: #f1c40f; /* 무인도는 노란색으로 */
+    border-color: #e67e22;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+
+/* 칸 이벤트 시각화 (임시) */
+.page-game-board .event-get-dice {
+    background-color: #4CAF50; /* 주사위 획득은 초록색 */
+}
+
+.page-game-board .event-special {
+    background-color: #FF9800; /* 특수 이벤트는 주황색 */
+}
+
+.page-game-board .event-empty {
+    background-color: #95a5a6; /* 빈 칸은 기본 셀 색상과 동일 */
+}
+
+
+.page-game-board .game-messages {
+    background-color: #1a232b;
+    border: 2px solid #34495e;
+    padding: 10px;
+    /* font-size: 0.8em; // 기존 */
+    font-size: 0.9em; /* 폰트 크기 증가 */
+    height: 100px;
+    overflow-y: auto;
+}
+.page-game-board .game-messages p { /* p 태그에도 폰트 크기 적용 */
+    font-size: 1em; /* 부모로부터 상속받거나 명시적 설정 */
+    line-height: 1.3;
+}
+
+
+.page-game-board .dice-area,
+.page-game-board .inventory-area,
+.page-game-board .game-control-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 채팅 영역 스타일 */
+.page-game-board .chat-area {
+    display: flex;
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.page-game-board #chat-input {
+    flex-grow: 1; /* 입력창이 최대한 공간 차지 */
+    background-color: #ecf0f1;
+    border: 2px solid #bdc3c7;
+    padding: 8px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75em;
+    color: #2c3e50;
+    -webkit-text-stroke: 0.5px black;
+}
+
+.page-game-board #chat-send-button {
+    padding: 8px 12px;
+    font-size: 0.7em;
+}
+
+
+.page-game-board #dice-result {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    font-size: 3em;
+    padding: 15px;
+    text-align: center;
+    border: 3px solid #bdc3c7;
+    margin-top: 10px;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+    -webkit-text-stroke: 1px black;
+}
+
+.page-game-board .item-dice-btn {
+    background-color: #3498db;
+    border: 2px solid #2980b9;
+    color: white;
+    padding: 7px 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75em;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+    -webkit-text-stroke: 0.5px black;
+    display: flex;
+    align-items: center;
+}
+
+.page-game-board .item-dice-btn[data-dice="저장 주사위 스택 받기"] .dice-color-preview {
+    border-radius: 50%;
+}
+
+.page-game-board .item-dice-btn[data-dice="강화 저장 주사위 스택 받기"] .dice-color-preview {
+    border-radius: 50%;
+}
+
+.page-game-board .item-dice-btn:hover:not(:disabled) {
+    background-color: #2ecc71;
+}
+
+/* 주사위 색상 미리보기 아이콘 */
+.page-game-board .item-dice-btn .dice-color-preview {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.5);
+    margin-right: 8px;
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+}
+
+.page-game-board .game-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 3px solid #2980b9;
+    font-size: 0.7em;
+    color: #95a5a6;
+}
+
+/* 타겟 선택 팝업 (공통 스타일, 원하는 주사위 선택 팝업도 활용) */
+.target-selection-popup {
+    position: fixed;
+    background-color: #34495e;
+    border: 5px solid #2980b9;
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
+    padding: 20px;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%; /* 팝업 너비 */
+    max-width: 400px; /* 최대 너비 */
+}
+
+.target-selection-popup h3 {
+    color: #f1c40f;
+    margin-top: 0;
+    text-align: center;
+    border-bottom: none; /* 패널 제목 스타일 제거 */
+}
+
+.target-selection-popup .player-selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.target-selection-popup .player-selection-item {
+    background-color: #2c3e50;
+    border: 2px solid #3498db;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+    -webkit-text-stroke: 0.5px black;
+}
+
+.target-selection-popup .player-selection-item:hover {
+    background-color: #4a6a86;
+}
+
+.target-selection-popup .player-selection-item .player-token {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.5);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .page-game-board .game-area {
+    flex-direction: column;
+  }
+  .page-game-board .player-list-panel,
+  .page-game-board .control-panel,
+  .page-game-board .game-board-panel {
+    flex: auto;
+    min-width: unset;
+  }
+  .page-game-board .game-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .page-game-board .game-header h1 {
+    font-size: 1.5em;
+  }
+  body {
+    padding: 10px;
+  }
+}
+
+/* style.css */
+.player-token-on-board.healed {
+  animation: healEffect 1s ease-out;
+}
+
+@keyframes healEffect {
+  0% { box-shadow: 0 0 0px #00ffcc; }
+  50% { box-shadow: 0 0 10px #00ffcc; }
+  100% { box-shadow: 0 0 0px #00ffcc; }
+}

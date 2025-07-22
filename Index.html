@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미쳐버린 주사위들</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Socket.IO 클라이언트 라이브러리 -->
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <!-- 1. 로그인 페이지 -->
+    <div id="login-page" class="page-container page-login">
+        <div class="login-container">
+            <h1>🎲 미쳐버린 주사위들 🎲</h1> <!-- 구글 계정으로 로그인하여 -->
+            <p>게임에 오신 것을 환영합니다! <br>게임을 시작해주세요.</p>
+            <button id="google-login-button" class="btn primary-btn">게임 시작하기</button>
+        </div>
+    </div>
+
+    <!-- 2. 방 목록 페이지 -->
+    <div id="room-list-page" class="page-container page-room-list" style="display:none;">
+        <div class="game-container">
+            <header class="game-header">
+                <h1>🎲 방 선택 🎲</h1>
+                <div class="user-info">
+                    <span id="player-nickname"></span>
+                    <button id="logout-button" class="btn">로그아웃</button>
+                </div>
+            </header>
+
+            <main class="room-list-area">
+                <div class="room-actions">
+                    <button id="create-room-button" class="btn primary-btn">새 방 만들기</button>
+                    <button id="explanation-button" class="btn">주사위 설명</button>
+                </div>
+
+                <div class="room-list-panel">
+                    <h2>현재 열린 방 목록</h2>
+                    <div id="room-list">
+                        <p id="no-rooms-message" style="display: none;">현재 열린 방이 없습니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="game-footer">
+                <p>&copy; 2025 미쳐버린 주사위들. Made by 민우준. absolute beta version</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 3. 게임 보드 페이지 -->
+    <div id="game-board-page" class="page-container page-game-board" style="display:none;">
+        <div class="game-container">
+            <header class="game-header">
+                <h1 id="current-room-name">🎲 [방 이름] 🎲</h1>
+                <div class="user-info">
+                    <span id="player-name"></span>
+                    <button id="leave-room-button" class="btn">방 나가기</button>
+                </div>
+            </header>
+
+            <div class="game-area">
+                <aside class="player-list-panel">
+                    <h2>플레이어</h2>
+                    <div id="player-list">
+                        <!-- 플레이어 목록은 서버에서 받아 동적으로 추가될 예정 -->
+                    </div>
+                    <div class="game-control-buttons">
+                        <button id="ready-button" class="btn">준비</button>
+                        <button id="start-game-button" class="btn primary-btn" style="display: none;">게임 시작</button>
+                    </div>
+                </aside>
+
+                <main class="game-board-panel">
+                    <div id="game-board">
+                        <!-- 13x13 격자, 외곽 칸만 배치, grid-column과 grid-row로 위치 지정 -->
+                        <!-- 1행 (row 1), left-to-right (0-12) -->
+                        <div class="board-cell start-cell" style="grid-column:1; grid-row:1;" data-cell-index="0">시작</div>
+                        <div class="board-cell" style="grid-column:2; grid-row:1;" data-cell-index="1"></div>
+                        <div class="board-cell" style="grid-column:3; grid-row:1;" data-cell-index="2"></div>
+                        <div class="board-cell" style="grid-column:4; grid-row:1;" data-cell-index="3"></div>
+                        <div class="board-cell" style="grid-column:5; grid-row:1;" data-cell-index="4"></div>
+                        <div class="board-cell" style="grid-column:6; grid-row:1;" data-cell-index="5"></div>
+                        <div class="board-cell" style="grid-column:7; grid-row:1;" data-cell-index="6"></div>
+                        <div class="board-cell" style="grid-column:8; grid-row:1;" data-cell-index="7"></div>
+                        <div class="board-cell" style="grid-column:9; grid-row:1;" data-cell-index="8"></div>
+                        <div class="board-cell" style="grid-column:10; grid-row:1;" data-cell-index="9"></div>
+                        <div class="board-cell" style="grid-column:11; grid-row:1;" data-cell-index="10"></div>
+                        <div class="board-cell" style="grid-column:12; grid-row:1;" data-cell-index="11"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:1;" data-cell-index="12"></div>
+
+                        <!-- 2-12행 (empty cells in middle) -->
+                        <!-- Right column (row 2-12), top-to-bottom (13-24) -->
+                        <div class="board-cell" style="grid-column:13; grid-row:2;" data-cell-index="13"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:3;" data-cell-index="14"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:4;" data-cell-index="15"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:5;" data-cell-index="16"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:6;" data-cell-index="17"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:7;" data-cell-index="18"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:8;" data-cell-index="19"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:9;" data-cell-index="20"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:10;" data-cell-index="21"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:11;" data-cell-index="22"></div>
+                        <div class="board-cell" style="grid-column:13; grid-row:12;" data-cell-index="23"></div>
+                        <div class="board-cell special-jail" style="grid-column:13; grid-row:13;" data-cell-index="24">무인도</div>
+
+
+                        <!-- 13행 (row 13), right-to-left (25-36) -->
+                        <div class="board-cell" style="grid-column:12; grid-row:13;" data-cell-index="25"></div>
+                        <div class="board-cell" style="grid-column:11; grid-row:13;" data-cell-index="26"></div>
+                        <div class="board-cell" style="grid-column:10; grid-row:13;" data-cell-index="27"></div>
+                        <div class="board-cell" style="grid-column:9; grid-row:13;" data-cell-index="28"></div>
+                        <div class="board-cell" style="grid-column:8; grid-row:13;" data-cell-index="29"></div>
+                        <div class="board-cell" style="grid-column:7; grid-row:13;" data-cell-index="30"></div>
+                        <div class="board-cell" style="grid-column:6; grid-row:13;" data-cell-index="31"></div>
+                        <div class="board-cell" style="grid-column:5; grid-row:13;" data-cell-index="32"></div>
+                        <div class="board-cell" style="grid-column:4; grid-row:13;" data-cell-index="33"></div>
+                        <div class="board-cell" style="grid-column:3; grid-row:13;" data-cell-index="34"></div>
+                        <div class="board-cell" style="grid-column:2; grid-row:13;" data-cell-index="35"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:13;" data-cell-index="36"></div>
+
+                        <!-- Left column (row 12-2), bottom-to-top (37-47) -->
+                        <div class="board-cell" style="grid-column:1; grid-row:12;" data-cell-index="37"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:11;" data-cell-index="38"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:10;" data-cell-index="39"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:9;" data-cell-index="40"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:8;" data-cell-index="41"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:7;" data-cell-index="42"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:6;" data-cell-index="43"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:5;" data-cell-index="44"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:4;" data-cell-index="45"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:3;" data-cell-index="46"></div>
+                        <div class="board-cell" style="grid-column:1; grid-row:2;" data-cell-index="47"></div>
+
+
+                        <!-- Empty cells for the middle (spans columns 2 to 12, rows 2 to 12) -->
+                        <div class="empty-cell" style="grid-column: 2 / span 11; grid-row: 2 / span 11;"></div>
+
+                    </div>
+
+                    <div class="game-messages" id="game-messages">
+                        <p>[로그] 환영합니다! 게임을 시작하세요.</p>
+                    </div>
+                    <div class="chat-area">
+                        <input type="text" id="chat-input" placeholder="채팅 입력..." />
+                        <button id="chat-send-button" class="btn">보내기</button>
+                    </div>
+                </main>
+
+                <aside class="control-panel">
+                    <div class="dice-area">
+                        <h3>주사위</h3>
+                        <button id="roll-dice-button" class="btn primary-btn">운명의 주사위 굴리기</button>
+                        <div id="dice-result" class="result-display">?</div>
+                    </div>
+
+                    <div class="inventory-area">
+                        <h3>내 주사위 아이템</h3>
+                        <div id="item-dice-inventory">
+                            <!-- 주사위 아이템이 여기에 동적으로 추가될 예정 -->
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <footer class="game-footer">
+                <p>&copy; 2025 미쳐버린 주사위들. Made by 민우준. absolute beta version</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 원하는 주사위 선택 팝업 (hidden by default) -->
+    <div id="dice-selection-popup" class="target-selection-popup" style="display:none;">
+        <h3>원하는 주사위를 선택해주세요!</h3>
+        <div id="dice-selection-list" class="player-selection-list">
+            <!-- 주사위 선택 옵션이 여기에 동적으로 추가될 예정 -->
+        </div>
+        <button class="btn cancel-dice-selection">취소</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
