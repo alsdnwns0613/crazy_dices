@@ -1627,8 +1627,6 @@ io.on('connection', (socket) => {
     });
 });
 
-const path = require('path');
-
 // 정적 파일 서빙 설정
 app.use(express.static(path.join(__dirname, 'public')));
 
