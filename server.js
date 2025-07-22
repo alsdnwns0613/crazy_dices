@@ -1627,6 +1627,10 @@ io.on('connection', (socket) => {
     });
 });
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the Dice Game!');
+});
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`[서버 시작] 주사위 대전 서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
