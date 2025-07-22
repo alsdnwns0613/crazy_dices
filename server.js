@@ -1627,8 +1627,14 @@ io.on('connection', (socket) => {
     });
 });
 
+const path = require('path');
+
+// 정적 파일 서빙 설정
+app.use(express.static(path.join(__dirname, 'public')));
+
+// 루트 요청에 index.html 응답
 app.get('/', (req, res) => {
-  res.send('Welcome to the Dice Game!');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
